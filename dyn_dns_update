@@ -23,7 +23,7 @@ fc = FritzStatus(address='fritz.box', password='<insert Fritzbox password>')
 ipv4 = fc.external_ip
 ipv6 = fc.external_ipv6
 domain = '<insert domain name>'
-dyn_pw = '<insert dyndns client password'
+dyn_pw = '<insert dyndns client password>'
 strato_url = 'https://{}:{}@dyndns.strato.com/nic/update?hostname={}&myip={},{}'.format(domain,dyn_pw,domain,ipv4,ipv6)
 
 r = requests.get(strato_url)
