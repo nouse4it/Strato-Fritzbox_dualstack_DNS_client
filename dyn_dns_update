@@ -1,0 +1,30 @@
+#!/usr/bin/python
+
+"""
+Category: Fritzbox Scripts
+Author: nouse4it <git@schlueter-online.net>
+
+dual_stack_dyn_dns_fritz-strato.py
+Illustrate the following conecepts:
+- Strato doesnt support Dual Stack DynDNS with Fritzbox
+- Therefore we update IPv4 and IPv6 Address of Fritzbox per Script and Cronjob
+"""
+
+__author__ = "nouse4it"
+__author_email__ = "git@schlueter-online.net"
+__copyright__ = "Copyright (c) 2021 nouse4it"
+
+# Importing all needed Modules
+from fritzconnection.lib.fritzstatus import FritzStatus
+import requests
+
+fc = FritzStatus(address='fritz.box', password='<insert Fritzbox password>')
+
+ipv4 = fc.external_ip
+ipv6 = fc.external_ipv6
+domain = '<insert domain name>'
+dyn_pw = '<insert dyndns client password'
+strato_url = 'https://{}:{}@dyndns.strato.com/nic/update?hostname={}&myip={},{}'.format(domain,dyn_pw,domain,ipv4,ipv6)
+
+r = requests.get(strato_url)
+print(r.text)
